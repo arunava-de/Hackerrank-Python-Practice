@@ -1,0 +1,10 @@
+import numpy as np
+
+N = int(input())
+degs = list(map(int,input().split()))
+
+critical = np.sum(degs)//2
+if critical == N-1:
+    print("Yes")
+else:
+    print("No")
