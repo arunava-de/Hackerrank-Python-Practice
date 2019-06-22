@@ -1,0 +1,11 @@
+T = int(input())
+
+for t in range(T):
+    E = int(input())
+    lines = 1
+    cities = set()
+    while lines<= E:
+        y = list(map(int,input().split()))
+        cities = cities | {y[0],y[1]}
+        lines += 1
+    print(len(cities))
