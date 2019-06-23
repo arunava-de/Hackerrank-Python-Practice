@@ -1,0 +1,84 @@
+N = int(input())
+#G_w= {}
+G = {}
+G_wts = {}
+adj_matrix = []
+#A = [[0]*N]*N
+
+for i in range(0, N):
+    temp = []
+    for j in range(0, N):
+        temp.append(0)
+    adj_matrix.append(temp)
+        
+for i in range(1,N+1):
+    G[i] = set()
+    G_wts[i] = set()
+
+def bfs_paths(graph, start, goal):
+    queue = [(start, [start])]
+    while queue:
+        (vertex, path) = queue.pop(0)
+        for next in graph[vertex] - set(path):
+            if next == goal:
+                yield path + [next]
+            else:
+                queue.append((next, path + [next]))
+                
+#lag = 0
+#edgelist = []
+for i in range(N-1):
+    u,v,w = list(map(int,input().split()))
+#    lag += w
+#    A[y[0]-1][y[1]-1] = y[2]
+#    A[y[1]-1][y[0]-1] = y[2]
+    adj_matrix[v-1][u-1] = adj_matrix[u-1][v-1] = w
+    G_wts[u] = G_wts[u] | {(v,w)}
+    G_wts[v] = G_wts[v] | {(u,w)}
+    G[u] = G[u] | {v}
+    G[v] = G[v] | {u}
+#    edgelist.append([y[0],y[1])
+
+Q = int(input())
+
+for q in range(Q):
+    u,v,w = list(map(int,input().split()))
+#    if adj_matrix[u-1][v-1] != 0:
+#       if w < adj_matrix[u][v]:
+#           print("YES")
+    if (v,w) in G_wts[u]:
+        for t in G_wts[u]:
+            if t[0] == v:
+                if t[1] > w:
+                    print("YES")
+    else:
+        #A cycle is formed, which includes this edge y[0],y[1]
+        G_new = G.copy()
+#        G_new_wts = G_wts.copy()
+        G_new[u] = G_new[u] | {v}
+        G_new[v] = G_new[v] | {u}
+        
+        path = list(bfs_paths(G_new, u, v))
+        edges = []
+        f = 0
+        cycle = []
+        for p in path:
+            if p == [u,v] or p == [v,u]:
+                continue
+            cycle = p
+            
+        for i in range(len(cycle)-1):
+            edges.append([cycle[i],cycle[i+1]])
+        edges.append([cycle[len(cycle)-1],cycle[0]])
+        for e in edges:
+#            p, q = e
+            if set(e) != set([u,v]):
+                p,q = e
+                for t in G_wts[p]:
+                    if t[0] == q:
+                        if t[1] > w:
+                            print("YES")
+                            f = 1
+                            break
+        if f==0:
+            print("NO")
