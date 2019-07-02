@@ -1,0 +1,19 @@
+S = input()
+k = int(input())
+
+T = []
+i = 0
+while i<len(S):
+    T.append(S[i:i+k])
+    i = i + k
+
+for t in T:
+    u = ""
+    marked = []
+    for c in t:
+        if c in marked:
+            continue
+        else:
+            u = u + c
+            marked.append(c)
+    print(u)
