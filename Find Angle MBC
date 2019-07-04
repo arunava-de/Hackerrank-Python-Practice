@@ -1,0 +1,9 @@
+import math 
+
+ab = int(input())
+bc = int(input())
+
+ac = math.sqrt(ab**2 + bc**2)
+
+c = 360*math.acos(bc/ac)/(2*math.pi)
+print(str(round(c))+"°")
