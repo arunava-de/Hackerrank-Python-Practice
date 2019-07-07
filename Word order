@@ -1,0 +1,16 @@
+N = int(input())
+words = {}
+word_list = []
+
+for i in range(N):
+    s = input()
+    if s in words.keys():
+        words[s] += 1
+    else:
+        words[s] = 1
+        word_list.append(s)
+
+print(len(word_list))
+
+for w in word_list:
+    print(words[w],end = " ")
