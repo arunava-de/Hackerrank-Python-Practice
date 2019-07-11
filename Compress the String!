@@ -1,0 +1,24 @@
+S = input()
+groups =[]
+count = 0
+
+if len(S) == 1:
+    print("(1, " + S + ")")
+else:
+    for i in range(len(S)-1):
+        c = S[i]
+        count += 1
+        if S[i+1] == c:
+            continue
+        else:
+            groups.append((count,c))
+            count = 0
+
+    d = S[len(S)-1]
+    if c == d:
+        groups.append((count+1,c))
+    else:
+        groups.append((1,d))
+
+    for g in groups:
+        print("(" + str(g[0]) + ", " + g[1] + ")",end=" ")
