@@ -1,0 +1,32 @@
+S = input()
+d = dict()
+
+for c in S:
+    if c in d.keys():
+        d[c] += 1
+    else:
+        d[c] = 1
+
+inv_freq = {}
+chars = list(d.keys())
+chars.sort()
+
+for c in chars:
+    if d[c] in inv_freq.keys():
+        inv_freq[d[c]].append(c)
+    else:
+        inv_freq[d[c]] = [c]
+
+freq = list(inv_freq.keys())
+freq.sort()
+list.reverse(freq)
+
+top = []
+for f in freq:
+    for c in inv_freq[f]:
+        if len(top)==3:
+            break
+        top.append(c)
+
+for t in top:
+    print(t + " " + str(d[t]))
