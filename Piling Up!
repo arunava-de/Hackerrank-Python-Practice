@@ -1,0 +1,21 @@
+T = int(input())
+
+for t in range(T):
+    n = int(input())
+    sides = list(map(int,input().split()))
+    temp = sides[:]
+    flag = 1
+    while n>=2:
+        if sides[0]>=sides[1]:
+            sides.pop(0)
+            n -= 1
+        elif sides[-1]>=sides[-2]:
+            sides.pop(-1)
+            n -= 1
+        elif sides[1]>sides[0] and sides[-2]>sides[-1]:
+            flag = 0
+            break
+    if flag == 0:
+        print("No")
+    else:
+        print("Yes")
