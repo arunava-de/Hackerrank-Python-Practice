@@ -1,0 +1,36 @@
+#Putting i in proper position
+
+def max_heapify(arr, i, N):
+#    N = len(arr) - 1
+    left =  2*i
+    right = 2*i + 1
+    if left<=N and arr[left]>arr[i]:
+        largest = left
+    else:
+        largest = i
+    if right<=N and arr[right]>arr[largest]:
+        largest = right
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        max_heapify(arr, largest, N)
+
+#Building max heap from an array
+        
+def build_maxheap(arr):
+    N = len(arr) - 1
+    rg = list(range(1,(N//2)+1))
+    rg.reverse()
+    for i in rg:
+        max_heapify(arr, i, N)
+
+#Sorting in ascending, placing current max in last position of current arr every time
+def heap_sort(arr):
+    heap_size = len(arr) - 1
+    N = heap_size
+    build_maxheap(arr)
+    rg = list(range(2,N+1))
+    rg.reverse()
+    for i in rg:
+        arr[1], arr[i] = arr[i], arr[1]
+        heap_size -= 1
+        max_heapify(arr, 1, heap_size)
