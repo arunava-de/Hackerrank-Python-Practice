@@ -1,0 +1,15 @@
+import itertools
+
+K, M = map(int,input().split())
+l = []
+
+for k in range(K):
+    l.append(list(map(int,input()[1:].split())))
+prod = list(itertools.product(*l))
+max = 0
+for p in prod:
+    s =sum(map(lambda x:x*x,p))
+    if s%M>max:
+        max = s%M
+
+print(max)
