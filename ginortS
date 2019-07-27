@@ -1,0 +1,37 @@
+s = input()
+
+upper = []
+lower = []
+odd = []
+even = []
+
+for c in s:
+    if ord(c)>=65 and ord(c)<=90:
+        upper.append(c)
+    elif ord(c)>=97 and ord(c)<=122:
+        lower.append(c)
+    elif ord(c)>=48 and ord(c)<=57:
+        if ord(c)%2==0:
+            even.append(int(c))
+        else:
+            odd.append(int(c))
+
+upper.sort()
+lower.sort()
+odd.sort()
+even.sort()
+
+res = ""
+for i in lower:
+    res = res + i
+
+for i in upper:
+    res = res + i
+
+for i in odd:
+    res = res + str(i)
+
+for i in even:
+    res = res + str(i)
+
+print(res)
