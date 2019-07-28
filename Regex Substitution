@@ -1,0 +1,12 @@
+import re 
+
+N = int(input())
+text = []
+
+for i in range(N):
+    temp = re.sub(r" \&\&(?= )"," and",input())
+    temp = re.sub(r" \|\|(?= )"," or",temp)
+    text.append(temp)
+
+for i in range(N):
+    print(text[i])
