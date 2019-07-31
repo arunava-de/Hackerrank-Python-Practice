@@ -1,0 +1,19 @@
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the sockMerchant function below.
+def sockMerchant(n, ar):
+    socks = {}
+    for i in range(n):
+        if ar[i] in socks.keys():
+            socks[ar[i]] += 1
+        else:
+            socks[ar[i]] = 1
+    pairs = 0
+    for i in socks.keys():
+        pairs += socks[i]//2
+    
+    return pairs
