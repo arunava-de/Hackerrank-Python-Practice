@@ -1,0 +1,24 @@
+def sherlockAndAnagrams(s):
+    if len(s)==1:
+        return 0
+    else:
+        count = 0
+        n = len(s)
+        for i in range(1,n):
+            l = 0
+            subs = {}
+            r = 0
+            while r<n:
+                r = l+i
+                temp = sorted(s[l:r])
+                sub = ""
+                for t in temp:
+                    sub += t
+                if sub in subs.keys():
+                    subs[sub] += 1
+                else:
+                    subs[sub] = 1
+                l += 1
+            for sub in subs.keys():
+                count += subs[sub]*(subs[sub]-1)//2
+        return count
