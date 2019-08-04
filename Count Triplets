@@ -1,0 +1,26 @@
+def countTriplets(arr, r):
+    count = 0
+    left_dict = {}
+    right_dict = {}
+    for a in arr:
+        if a in right_dict.keys():
+            right_dict[a] += 1
+        else:
+            right_dict[a] = 1
+            left_dict[a] = 0
+
+    for i in range(len(arr)):
+        a = arr[i]
+        lc = 0
+        rc = 0
+        right_dict[a] -= 1
+        if a/r in arr:
+            lc = left_dict[a/r]
+        
+        if a*r in arr:
+            rc = right_dict[a*r]
+    
+        count += lc*rc
+        left_dict[a] += 1
+    
+    return count
