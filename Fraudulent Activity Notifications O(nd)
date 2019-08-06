@@ -1,0 +1,55 @@
+def binary_search(arr, v):
+    left = 0
+    right = len(arr)-1
+    while left<=right:
+        half = (left+right)//2
+        if arr[half] == v:
+            return half
+        elif arr[half]<v:
+            left = half+1
+        else:
+            right = half-1
+        
+def median(arr):
+    n = len(arr)
+    if n%2==0:
+        return (arr[(n//2)-1]+arr[n//2])/2
+    else:
+        return arr[n//2]
+ 
+def insert(arr, v):
+    if v<=arr[0]:
+        arr = [v]+arr
+    elif v>=arr[-1]:
+            arr = arr + [v]
+    else:
+        for i in range(1,len(arr)):
+            if arr[i-1]<=v<=arr[i]:
+                arr = arr[:i]+[v]+arr[i:]
+                break
+    return arr
+    
+    
+def activityNotifications(expenditure, d):
+    count = 0
+    trail = []
+    sorted_trail = []
+    n = len(expenditure)
+    
+    for i in range(n):
+        if i<d-1:
+            trail.append(expenditure[i])
+        elif i == d-1:
+            trail.append(expenditure[i])
+            sorted_trail = sorted(trail)
+        else:
+            med = median(sorted_trail)
+            new = expenditure[i]
+            if new >= 2*med:
+                count += 1
+            old = trail.pop(0)
+            old_pos = binary_search(sorted_trail, old)
+            sorted_trail.pop(old_pos)
+            trail.append(new)
+            sorted_trail = insert(sorted_trail, new)
+    return count
