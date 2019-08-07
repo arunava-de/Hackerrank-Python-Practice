@@ -1,0 +1,40 @@
+def median(D,d):
+    c = 0
+    for k in range(1,201):
+        if D[k]!=0:
+            c += D[k]
+            if 2*c<d:
+                continue
+            elif 2*c>d:
+                return k
+            else:
+                for i in range(k+1,201):
+                    if D[i]!=0:
+                        break
+                return (k+i)/2
+
+def activityNotifications(expenditure, d):
+    count = 0
+    trail = []
+    sorted_trail = {}
+    n = len(expenditure)
+    for i in range(201):
+        sorted_trail[i] = 0
+        
+    for i in range(n):
+        if i<d-1:
+            trail.append(expenditure[i])
+        elif i == d-1:
+            trail.append(expenditure[i])
+            for t in trail:
+                sorted_trail[t] += 1
+        else:
+            med = median(sorted_trail,d)
+            new = expenditure[i]
+            if new >= 2*med:
+                count += 1
+            old = trail.pop(0)
+            sorted_trail[old] -= 1
+            trail.append(new)
+            sorted_trail[new] += 1
+    return count
