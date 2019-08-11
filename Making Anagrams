@@ -1,0 +1,16 @@
+def makeAnagram(a, b):
+    d1 = {}
+    d2 = {}
+    for c in range(97,123):
+        d1[chr(c)] = 0
+        d2[chr(c)] = 0
+    
+    for c in a:
+        d1[c] += 1
+    for c in b:
+        d2[c] += 1
+    diff = 0
+    for c in d1.keys():
+        diff += abs(d1[c] - d2[c])
+    
+    return diff
