@@ -1,0 +1,20 @@
+def getMinimumCost(k, c):
+    c.sort()
+    c.reverse()
+    cost = 0
+    
+    n = len(c)
+    friends = {}
+    
+    for i in range(k):
+        friends[i] = []
+    j = 0
+    for i in range(n):
+        friends[j%k].append(c[i])
+        j += 1
+        
+    for i in range(k):
+        for j in range(len(friends[i])):
+            cost += (j+1)*friends[i][j]
+    
+    return cost
