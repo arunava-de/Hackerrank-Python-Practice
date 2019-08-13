@@ -1,0 +1,21 @@
+def luckBalance(k, contests):
+    bal = 0
+    n = len(contests)
+    imp = []
+    for i in range(n):
+        if contests[i][1] == 0:
+            bal += contests[i][0]
+        else:
+            imp.append(contests[i][0])
+    
+    imp.sort()
+    imp.reverse()
+    
+    for i in range(len(imp)):
+        if k>0:
+            k -= 1
+            bal += imp[i]
+        elif k==0:
+            bal -= imp[i]
+            
+    return bal
