@@ -1,0 +1,9 @@
+def maxMin(k, arr):
+    arr.sort()
+    n = len(arr)
+    diff = 10**9
+    for i in range(n-k+1):
+        if arr[i+k-1]-arr[i]<diff:
+            diff = arr[i+k-1]-arr[i]
+    
+    return diff
