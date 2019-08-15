@@ -1,0 +1,60 @@
+s = input()
+n = len(s)
+
+freq_s = {}
+freq_a = {}
+seen_a = {}
+seen_s = {}
+A = ""
+min_stack = []
+
+for i in range(97,123):
+    freq_s[chr(i)] = 0
+    freq_a[chr(i)] = 0
+    seen_a[chr(i)] = 0
+    seen_s[chr(i)] = 0
+for c in s:
+    freq_s[c] += 1
+
+for i in range(97,123):
+    if freq_s[chr(i)]!=0:
+        min_stack.append(i)
+    
+for i in range(97,123):
+    freq_a[chr(i)] = freq_s[chr(i)]//2
+    
+s = "".join(reversed(s))
+
+for c in s:
+    seen_s[c] += 1
+    #Choosing whether to select a character
+    if min_stack == []:
+        break
+    if ord(c)==min_stack[0]:
+        #If current character smaller than all others seen so far
+        if seen_a[c] == freq_a[c]:
+            #If current character already in A required number of times
+            continue
+        else:
+            #If we still have place for the current character, we add it to A
+            A += c
+            seen_a[c] += 1
+            seen_s[c] += 1
+            if seen_a[c] == freq_a[c]:
+                min_stack.pop(0)
+    else:
+        #Not so ideal case, where current character is larger than the smalles we've seen
+        #so far
+        if seen_s[c]<=freq_a[c]:
+            #If we haven't yet seen all occurences of the current character, we can ignore
+            continue
+        else:
+            #We cannot ignore this character anymore, add it to the string
+            if seen_a[c] == freq_a[c]:
+                #We already have added current character to the string required no. of times
+                continue
+            #Else, we add it to A
+            A += c
+            seen_a[c] += 1
+
+print(A)
