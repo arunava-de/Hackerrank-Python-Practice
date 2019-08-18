@@ -1,0 +1,20 @@
+def pairs(k, arr):
+    d = {}
+    n = len(arr)
+    
+    for i in range(n):
+        if arr[i] in d.keys():
+            d[arr[i]] += 1
+        else:
+            d[arr[i]] = 1
+    
+    c = 0
+    
+    for i in arr:
+        target = i + k
+        if target in d.keys():
+            if d[target] >0:
+                c += 1
+                d[target] -= 1
+    
+    return c
