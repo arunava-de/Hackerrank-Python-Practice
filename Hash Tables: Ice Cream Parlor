@@ -1,0 +1,23 @@
+def whatFlavors(cost, money):
+    cost_dict = {}
+    for c in cost:
+        if c in cost_dict.keys():
+            cost_dict[c] += 1
+        else:
+            cost_dict[c] = 1
+
+    for c in cost_dict.keys():
+        cost_dict[c] -= 1
+        if money-c in cost_dict.keys():
+            if cost_dict[money-c] > 0:
+                break 
+            
+
+    for i in range(len(cost)):
+        if cost[i] == c:
+            break
+    for j in range(len(cost)):
+        if cost[j] == money-c and j!=i:
+            break
+#    
+    print(i+1,j+1)
