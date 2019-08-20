@@ -1,0 +1,23 @@
+def triplets(a,b,c):
+    a = list(sorted(set(a)))
+    b = list(sorted(set(b)))
+    c = list(sorted(set(c)))
+    
+    count = 0
+    ac = 0
+    bc = 0
+    cc = 0
+    
+    l1 = len(a)
+    l2 = len(b)
+    l3 = len(c)
+    
+    while bc<l2:
+        while ac<l1 and a[ac]<=b[bc]:
+            ac += 1
+        while cc<l3 and c[cc]<=b[bc]:
+            cc += 1
+        count += ac*cc
+        bc += 1
+    
+    return count       
