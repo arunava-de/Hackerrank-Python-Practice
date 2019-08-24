@@ -1,0 +1,45 @@
+import math
+
+def minimumPasses(m, w, p, n):
+    if m*w>=n:
+        return 1
+    elif n<=p:
+        return math.ceil(n/(m*w))
+    candy = m*w
+    count = 1
+    while candy<n:
+        #Try to keep m and w at most 1 unit away from each other
+        afford = candy//p
+        if candy+m*w>=n:
+            count += 1
+            break
+        candy -= afford*p
+        if m>w:
+            if afford>m-w:
+                w = m
+                afford -= m-w
+                m += afford//2
+                w += afford-afford//2
+                afford = 0
+            else:
+                w += afford
+                afford = 0
+        elif m==w:
+            m += afford//2
+            w += afford - afford//2
+            afford = 0
+        else:
+            if afford>w-m:
+                m = w
+                afford -= w-m
+                m += afford//2
+                w += afford - afford//2
+                afford = 0
+            else:
+                m += afford
+                afford = 0
+        
+        candy += m*w
+        count += 1
+        
+    return count
