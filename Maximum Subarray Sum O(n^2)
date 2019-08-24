@@ -1,0 +1,16 @@
+def maximumSum(a, m):
+    
+    prefix = [0]*len(a)
+    curr = 0
+    for i in range(len(a)):
+        curr = (curr + a[i]%m)%m
+        prefix[i] = curr
+    
+    curr = -10**7
+    
+    for i in range(len(a)):
+        for j in range(i-1,-1,-1):
+            curr = max(curr, (prefix[i]-prefix[j] + m)%m)
+        curr = max(curr, prefix[i])
+
+    return curr
