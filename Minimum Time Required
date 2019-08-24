@@ -1,0 +1,19 @@
+def minTime(machines, goal):
+    min_day = math.ceil(goal/len(machines))*min(machines) #If all machines were as efficient as most efficient machine
+    max_day = math.ceil(goal/len(machines))*max(machines) #If all machines were as inefficient as most inefficient machine
+    
+    l = min_day
+    r = max_day
+    
+    while l<r:
+        half = (l+r)//2
+        curr = 0
+        for m in machines:
+            curr += half//m
+        
+        if curr>=goal:
+            r = half
+        else:
+            l = half + 1
+    
+    return l
