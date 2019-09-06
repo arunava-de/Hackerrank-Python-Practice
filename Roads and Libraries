@@ -1,0 +1,45 @@
+def roadsAndLibraries(n, c_lib, c_road, cities):
+    
+    G = {}
+    for i in range(n):
+        G[i] = set()
+        
+    for i in range(len(cities)):
+        e = cities[i]
+        G[e[0]-1] = G[e[0]-1] | {e[1]-1}
+        G[e[1]-1] = G[e[1]-1] | {e[0]-1}
+    
+    if c_lib<=c_road:
+        return c_lib*n
+    
+    else:
+        comps = connected_comps(n,G)
+        
+        cost = 0
+        for ct in comps:
+            cn = len(ct)
+            cost += (cn-1)*c_road + c_lib
+        
+        return cost
+    
+
+def connected_comps(n, G):
+    visited = [False]*n
+    comps = []
+    
+    for i in range(n):
+        if not visited[i]:
+            S = [i]
+            visited[i] = True
+            c = set()
+            while S:
+                v = S.pop()
+                c.add(v)
+                
+                for w in G[v]:
+                    if visited[w]==False:
+                        S.append(w)
+                        visited[w] = True
+            comps.append(c)
+        
+    return comps
