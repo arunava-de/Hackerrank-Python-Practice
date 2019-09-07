@@ -1,0 +1,36 @@
+from collections import defaultdict, deque
+
+def make_graph(graph_nodes, graph_from, graph_to):
+    G = defaultdict(set)
+        
+    for i in range(len(graph_from)):
+        G[graph_from[i]] = G[graph_from[i]] | {graph_to[i]}
+        G[graph_to[i]] = G[graph_to[i]] | {graph_from[i]}
+    return G
+
+def get_path(start, cond, G):
+    visited = set()
+    Q = deque()
+    Q.append([start,0])
+    visited.add(start)
+    
+    while Q:
+        source, dist = Q.popleft()  
+        for v in G[source]:
+            if v not in visited:
+                if cond(v):
+                    return dist+1
+                Q.append([v,dist+1])
+                visited.add(v)
+
+    return -1
+                
+    
+def findShortest(graph_nodes, graph_from, graph_to, ids, val):
+    
+    G = make_graph(graph_nodes, graph_from, graph_to)
+    color = ids[val-1]
+
+    path = get_path(val, lambda node: ids[node-1]==color, G)
+    
+    return path
