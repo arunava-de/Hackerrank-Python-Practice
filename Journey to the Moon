@@ -1,0 +1,49 @@
+from collections import deque, defaultdict
+N, M = list(map(int,input().split()))
+
+def make_graph(N,M):
+    G = defaultdict()
+    for i in range(N):
+        G[i] = set()
+    
+    for i in range(M):
+        y = list(map(int,input().split()))
+        G[y[0]] = G[y[0]] | {y[1]}
+        G[y[1]] = G[y[1]] | {y[0]}
+    
+    return G
+
+def connected_comps(G, N):
+    visited = set()
+    comps = []
+    vertices = set(range(N))
+    
+    while len(visited)<N:
+        u = list(vertices-visited)[0]
+        
+        Q = deque()
+        Q.append(u)
+        visited.add(u)
+        temp = set()
+        temp.add(u)
+        while Q:
+            u = Q.popleft()
+            
+            for v in G[u]:
+                if v not in visited:
+                    visited.add(v)
+                    Q.append(v)
+                    temp.add(v)
+        
+        comps.append(len(temp))
+    
+    return comps
+
+res = 0
+G = make_graph(N,M)
+conn_comps = connected_comps(G,N)
+s = sum(conn_comps)
+for c in conn_comps:
+    res = res + c*(s-c)
+
+print(res//2)
