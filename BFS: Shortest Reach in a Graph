@@ -1,0 +1,48 @@
+from collections import defaultdict, deque
+Q = int(input())
+
+def make_graph(N,M):
+    G = defaultdict(set)
+    
+    for i in range(M):
+        y = list(map(int,input().split()))
+        G[y[0]] = G[y[0]] | {y[1]}
+        G[y[1]] = G[y[1]] | {y[0]}
+    
+    return G
+
+def BFS(s, G, N):
+    
+    visited = [False]*N
+    Q = deque()
+    Q.append([s,0])
+    visited[s-1] = True
+    distances = [-1]*N
+    distances[s-1] = 0
+    
+    while Q:
+        u, dist = Q.popleft()
+        
+        for v in G[u]:
+            if not visited[v-1]:
+                distances[v-1] = dist + 6
+                Q.append([v,distances[v-1]])
+                visited[v-1] = True
+                
+    return distances
+
+for _ in range(Q):
+    N, M = list(map(int,input().split()))
+    G = make_graph(N,M)
+    s = int(input())
+    
+    res = BFS(s, G, N)
+    
+    temp = ""   
+    for i in range(N):
+        if i==s-1:
+            continue
+        else:
+            temp = temp + " " + str(res[i])
+    
+    print(temp[1:])
