@@ -1,0 +1,52 @@
+def lca(root, v1, v2):
+    path1 = [root]
+    path2 = [root]
+    
+    curr= root
+    while True:
+        if curr.left and curr.right:
+            if v1>curr.info:
+                curr = curr.right
+                path1.append(curr)
+            elif v1<curr.info:
+                curr = curr.left
+                path1.append(curr)
+            else:
+                break
+        elif curr.left and not curr.right:
+            curr = curr.left
+            path1.append(curr)
+        elif not curr.left and curr.right:
+            curr = curr.right
+            path1.append(curr)
+        else:
+            break
+    
+    curr = root
+    while True:
+        if curr.left and curr.right:
+            if v2>curr.info:
+                curr = curr.right
+                path2.append(curr)
+            elif v2<curr.info:
+                curr = curr.left
+                path2.append(curr)
+            else:
+                break
+        elif curr.left and not curr.right:
+            curr = curr.left
+            path2.append(curr)
+        elif not curr.left and curr.right:
+            curr = curr.right
+            path2.append(curr)
+        else:
+            break
+    
+
+    for i in range(min(len(path1),len(path2))):
+        if path1[i].info==v2:
+            return path1[i]
+        elif path2[i].info==v1:
+            return path2[i]
+        if path1[i].info!=path2[i].info:
+            return path1[i-1]
