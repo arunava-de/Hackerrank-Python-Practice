@@ -1,0 +1,19 @@
+def check(node, lower, upper):
+    
+    if not node.left and not node.right:
+        if node.data>lower and node.data<upper:
+            return True
+        else:
+            return False
+    else:
+        if node.left and node.right:
+            return check(node.left, lower, node.data) and check(node.right, node.data, upper)
+        elif node.left and not node.right:
+            return check(node.left, lower, node.data)
+        else:
+            return check(node.right, node.data, upper)
+    
+def checkBST(root):
+    upper = float('inf')
+    lower = float('-inf')
+    return check(root, lower, upper)
