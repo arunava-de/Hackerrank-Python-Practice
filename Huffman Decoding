@@ -1,0 +1,11 @@
+def decodeHuff(root, s):
+    
+    curr = root
+    for i in range(len(s)):  
+        if s[i] == '0':
+            curr = curr.left
+        elif s[i] == '1':
+            curr = curr.right
+        if curr.left == None and curr.right == None:
+            print(curr.data,end="")
+            curr = root
