@@ -1,0 +1,18 @@
+def reverse(head):
+    if head==None or head.next==None:
+        return head
+    
+    curr = head
+    temp_prv = None
+    temp_nxt = None
+    
+    while curr!=None:
+        temp_prv = curr.prev
+        temp_nxt = curr.next
+        curr.prev = temp_nxt
+        curr.next = temp_prv
+        if temp_nxt==None:
+            break
+        curr = temp_nxt
+    
+    return curr
