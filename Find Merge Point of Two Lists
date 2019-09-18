@@ -1,0 +1,40 @@
+def findMergeNode(head1, head2):
+    l1 = 1
+    l2 = 1
+    curr = head1
+    while curr != None:
+        l1 += 1
+        curr = curr.next
+    curr = head2
+    while curr != None:
+        l2 += 1
+        curr = curr.next
+
+    if l1<=l2:
+        count = l2-l1
+        curr2 = head2
+        while count>0:
+            curr2 = curr2.next
+            count -= 1
+        
+        curr1 = head1
+
+        while curr1!=curr2:
+            curr1 = curr1.next
+            curr2 = curr2.next
+        
+        return curr1.data
+    else:
+        count = l1-l2
+        curr1 = head1
+        while count>0:
+            curr1 = curr1.next
+            count -= 1
+        
+        curr2 = head2
+        
+        while curr1!=curr2:
+            curr1 = curr1.next
+            curr2 = curr2.next
+        
+        return curr1.data
