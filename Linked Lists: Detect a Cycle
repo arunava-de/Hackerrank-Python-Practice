@@ -1,0 +1,12 @@
+def has_cycle(head):
+    
+    visited = set()
+    
+    curr = head
+    while curr!=None:
+        if curr in visited:
+            return True
+        visited.add(curr)
+        curr = curr.next
+    
+    return False
