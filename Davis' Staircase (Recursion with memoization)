@@ -1,0 +1,26 @@
+def stepPerms(n):
+
+    S = [0]*(n+1)
+
+    if n==1:
+        return 1
+    elif n==2:
+        return 2
+    elif n==3:
+        return 4
+    S[1] = 1
+    S[2] = 2
+    S[3] = 4
+
+    def recur(k):
+        nonlocal S
+
+        if k<=0:
+            return 0
+        if S[k]!=0:
+            return S[k]
+        S[k] = recur(k-1) + recur(k-2) + recur(k-3)
+        return S[k]
+    
+    recur(n)
+    return S[n]
