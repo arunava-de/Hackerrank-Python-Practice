@@ -1,0 +1,5 @@
+def superDigit(n, k):
+    x = n*k%9
+    return (x if x else 9)
+    
+Helpful link: http://applet-magic.com/digitsummod9.htm
