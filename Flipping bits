@@ -1,0 +1,13 @@
+def flippingBits(n):
+    b = str(bin(n))[2:]
+    if len(b)<32:
+        b = "0"*(32-len(b)) + b
+    new_b = ""
+
+    for c in b:
+        if c=="0":
+            new_b += "1"
+        else:
+            new_b += "0"
+    
+    return(int(new_b,2))
