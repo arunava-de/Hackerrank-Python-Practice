@@ -1,0 +1,11 @@
+def solve(h, wallPoints, lengths):
+    # Write your code here
+    effective_heights = []
+    for i in range(len(lengths)):
+        effective_heights.append(wallPoints[i]-0.25*lengths[i])
+    
+    m = max(effective_heights)
+    if h>=m:
+        return 0
+    else:
+        return math.ceil(m-h)
