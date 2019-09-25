@@ -1,0 +1,41 @@
+def initialize(D, N):
+    size = {}
+    for i in N:
+        D[i] = i
+        size[i] = 1
+    return size, D
+
+def root(D, i):
+    while D[i] != i:
+        D[i] = D[D[i]]
+        i = D[i]
+    
+    return i
+
+def union(D, size, A, B):
+    root_A = root(D, A)
+    root_B = root(D, B)
+    if size[root_A] < size[root_B]:
+        D[root_A] = D[root_B]
+        size[root_B] += size[root_A]
+    else:
+        D[root_B] = D[root_A]
+        size[root_A] += size[root_B]
+
+def maxCircle(queries):
+    N = set()
+    for q in queries:
+        N.add(q[0])
+        N.add(q[1])
+
+    D = {}
+    size, D = initialize(D,N)
+
+    ans = []
+    max_size = 1
+    for q in queries:
+        A, B = q
+        union(D, size, A, B)
+        max_size = max(max_size, max(size[root(D,A)], size[root(D,B)]))
+        ans.append(max_size)
+    return ans
